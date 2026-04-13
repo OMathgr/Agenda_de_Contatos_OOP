@@ -2,9 +2,9 @@ import csv
 import os
 from models.contato import Contato
 
-CAMPOS = ['nome', 'telefone', 'email']
-
 class ArquivoCSV:
+    CAMPOS = ['nome', 'telefone', 'email']
+
     def __init__(self, nome_arquivo='Contatos.csv'):
         self.nome_arquivo = nome_arquivo
 
@@ -17,7 +17,7 @@ class ArquivoCSV:
             primeira_linha = f.readline().strip()
             resto = f.read()
 
-        cabecalho_esperado = ','.join(CAMPOS)
+        cabecalho_esperado = ','.join(self.CAMPOS)
 
         if primeira_linha != cabecalho_esperado:
             print("Cabeçalho incorreto detectado, corrigindo...")
@@ -51,7 +51,7 @@ class ArquivoCSV:
     #Salvar Contatos
     def salvar_contatos(self, contatos):
         with open (self.nome_arquivo, mode='w', encoding= 'utf-8', newline='') as arquivo:
-            writer = csv.DictWriter(arquivo, fieldnames=CAMPOS)
+            writer = csv.DictWriter(arquivo, fieldnames=self.CAMPOS)
             writer.writeheader()
 
             for contato in contatos:
