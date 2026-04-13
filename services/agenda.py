@@ -1,14 +1,20 @@
-import csv
 from models.contato import Contato
+from data.arquivo import ArquivoCSV
 
 class Agenda:
     def __init__(self):
-        self.contatos = []
+        self.repo = ArquivoCSV()
+        self.repo.verificar_e_corrigir_cabecalho()
+        self.contatos = self.repo.ler_contatos()
 
-    def carregar(self, arquivo):
-        with open (arquivo, mode='r', encoding='utf-8') as f:
-            leitor = csv.DictReader(f)
-            for linha in leitor:
-                self.contatos.append(
-                    Contato(linha['nome'], linha['telefone'], linha['email'])
-                )
+    def adicionar(self, contato=None, nome=None, telefone=None, email=None):
+        if contato is None:
+            contato = Contato(nome, telefone, email)
+
+        if contato in self.contatos:
+            print("Contato com email '{contato.email}' já existente.")
+            return
+
+        self.contatos.append(contato)
+        self.repo.salvar_contatos(self.contatos)
+        print("Contato adicionado com sucesso!")
