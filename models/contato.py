@@ -13,6 +13,8 @@ class Contato:
         return f"Contato('{self.nome}', '{self.telefone}', '{self.email}')"
     
     def __eq__(self, outro):
+        if not isinstance(outro, Contato):
+            return False
         return self.email.lower() == outro.email.lower()
 
     @property
@@ -44,4 +46,11 @@ class Contato:
     def email(self, valor):
         if not re.match(r"[^@]+@[^@]+\.[^@]+", valor):
             raise ValueError("Email inválido!")
-        self.__email = valor
+        self.__email = valor.lower()
+
+    def to_dict(self):
+        return{
+            'nome':self.nome,
+            'telefone':self.telefone,
+            'email':self.email
+        }
