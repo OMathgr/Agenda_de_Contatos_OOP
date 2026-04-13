@@ -18,3 +18,28 @@ class Agenda:
         self.contatos.append(contato)
         self.repo.salvar_contatos(self.contatos)
         print("Contato adicionado com sucesso!")
+
+    def listar(self):
+        if not self.contatos:
+            print("Nenhum contato cadastrado.")
+            return
+        
+        for i, contato in enumerate(self.contatos):
+            print(f"{i} - {contato}")
+
+    def remover(self, indice):
+        if not self.contatos:
+            print ("Nenhum contato cadastrado.")
+            return
+
+        if indice < 0 or indice >= len(self.contatos):
+            print("Número inválido.")
+            return
+        
+        contato_removido = self.contatos.pop(indice)
+        self.repo.salvar_contatos(self.contatos)
+
+        print(f"Contato '{contato_removido.nome}' removido com sucesso!")
+
+    def buscar(self, termo):
+        return [c for c in self.contatos if c.corresponde(termo)]

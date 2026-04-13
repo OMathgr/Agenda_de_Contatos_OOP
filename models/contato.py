@@ -54,3 +54,11 @@ class Contato:
             'telefone':self.telefone,
             'email':self.email
         }
+    
+    def corresponde(self,termo):
+        termo = termo.lower()
+        return (
+            termo in self.nome.lower()
+            or termo in self.telefone
+            or termo in self.email.lower()
+        )
