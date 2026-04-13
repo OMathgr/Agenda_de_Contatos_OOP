@@ -12,7 +12,7 @@ class Agenda:
             contato = Contato(nome, telefone, email)
 
         if contato in self.contatos:
-            print("Contato com email '{contato.email}' já existente.")
+            print(f"Contato com email '{contato.email}' já existente.")
             return
 
         self.contatos.append(contato)
