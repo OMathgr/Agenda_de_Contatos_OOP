@@ -1,47 +1,112 @@
-# 📒 Agenda de Contatos (OOP)
+# 📒 Agenda de Contatos (Python - OOP)
 
-Sistema de agenda de contatos desenvolvido em Python utilizando Programação Orientada a Objetos (OOP), com foco em organização de código e boas práticas.
+Projeto desenvolvido com foco em evolução prática de lógica para Programação Orientada a Objetos, simulando um sistema real de gerenciamento de contatos.
 
-# 🚀 Funcionalidades
+---
 
-- 📋 Listar contatos
-- ➕ Adicionar contato
-- 🔍 Buscar por nome
-- ❌ Remover contato
-- 💾 Persistência em CSV
-- 🧠 Validação de dados
-  
-# 🧱 Arquitetura
+## 🚀 Funcionalidades
 
-O projeto segue separação de responsabilidades:
+- ✅ Adicionar contatos
+- ✅ Listar contatos
+- ✅ Buscar contatos por nome
+- ✅ Remover contatos
+- ✅ Editar contatos
+- ✅ Validação de dados (nome, telefone e email)
+- ✅ Prevenção de contatos duplicados
+- ✅ Persistência em arquivo CSV
 
-- models → entidades (Contato)
-- services → regras de negócio (Agenda)
-- data → manipulação de arquivos
+---
 
-# ▶️ Como executar
+## 🧠 Conceitos aplicados
+
+- Programação Orientada a Objetos (OOP)
+- Encapsulamento (getters/setters com validação)
+- Tratamento de exceções (try/except)
+- Manipulação de arquivos CSV
+- Organização em camadas (models, services, data)
+- Boas práticas de código
+
+---
+
+## 🛠 Tecnologias utilizadas
+
+- Python 3.10+
+- CSV (armazenamento)
+
+## 📁 Estrutura do projeto
 
 ```bash
-git clone https://github.com/seu-usuario/agenda-python-oop.git
-cd agenda-python-oop
+agenda-contatos/
+│
+├── models/
+│ └── contato.py
+│
+├── services/
+│ └── agenda.py
+│
+├── data/
+│ └── arquivo.py
+│
+├── main.py
+├── Contatos.csv
+└── README.md
+```
+
+---
+
+## ▶️ Como executar
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+```
+
+2. Acesse a pasta:
+```bash
+cd seu-repositorio
+```
+
+3. Execute o projeto:
+```bash
 python main.py
 ```
 
-# 🎯 Objetivo
+---
 
-Projeto voltado para estudo de:
+## 💡 Exemplo de uso
 
-- Programação Orientada a Objetos
-- Organização de código
-- Boas práticas em Python
-  
-# 🔮 Próximos passos
+```bash
+--- Menu ---
+1 - Listar contatos
+2 - Adicionar Contato
+3 - Buscar Contato
+4 - Remover Contato
+5 - Editar Contato
+6 - Sair
+```
 
-Banco de dados (SQLite)
-Interface gráfica
-Exportação para .vcf
+---
 
-# 🔗 Versão anterior
+## 🎯 Objetivo do projeto
 
-Veja a versão procedural do projeto:
-👉 https://github.com/OMathgr/Agenda_de_Contatos.git
+Este projeto foi desenvolvido com foco em aprendizado, evoluindo de uma versão procedural para uma arquitetura orientada a objetos, visando boas práticas e organização de código.
+
+---
+
+## 📌 Próximos passos
+
+- [ ] Interface gráfica (Tkinter)
+- [ ] Integração com banco de dados (SQLite)
+- [ ] Criação de API (Flask/FastAPI)
+
+---
+## 🔗 Versão anterior
+
+Veja a versão procedural do projeto: 👉 [Versão procedural](https://github.com/OMathgr/Agenda_de_Contatos)
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por Matheus Graciano Ribeiro
