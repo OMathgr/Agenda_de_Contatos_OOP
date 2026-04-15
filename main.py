@@ -38,10 +38,48 @@ def excluir_contato(agenda):
             agenda.remover(indice)
                 
         else:
-            print("Cancelado.")
+            print("[INFO] Operação cancelada.")
 
-    except (ValueError, IndexError):
+    except ValueError:
         print("[ERRO] Entrada inválida.")
+
+    except IndexError as e:
+        print(f"[ERRO] {e}")
+
+def editar_contato(agenda):
+    if not agenda.contatos:
+        print("[INFO] Nenhum contato disponível.")
+        return
+    
+    agenda.listar()
+
+    try:
+        indice = int(input("Digite o número do contato para editar: "))
+        contato = agenda.contatos[indice]
+
+        print("\nDeixe em branco para manter os dados atuais.")
+
+        novo_nome = input(f"Nome ({contato.nome}): ").strip()
+        novo_telefone = input(f"Telefone ({contato.telefone}): ").strip()
+        novo_email = input(f"Email ({contato.email}): ").strip().lower()
+
+        agenda.editar(
+            indice,
+            nome = novo_nome or None,
+            telefone = novo_telefone or None,
+            email = novo_email or None
+        )
+
+        print("Contato atualizado com sucesso!")
+
+    except IndexError:
+        print("[ERRO] Índice inválido.")
+
+    except ValueError as e:
+        print(e)
+
+    except Exception as e:
+        print(f"[ERRO] {e}")
 
 def main():
     agenda = Agenda()
@@ -52,11 +90,12 @@ def main():
         print("2 - Adicionar Contato")
         print("3 - Buscar Contato")
         print("4 - Remover Contato")
-        print("5 - Sair")
+        print("5 - Editar Contato")
+        print("6 - Sair")
 
         try:
             escolha = int(input("Digite o número da opção desejada: ").strip())
-            if escolha <= 0 or escolha > 5:
+            if escolha <= 0 or escolha > 6:
                 print("[ERRO] Número inválido.")
                 continue
 
@@ -75,9 +114,12 @@ def main():
             #Excluir
             elif escolha == 4:
                 excluir_contato(agenda)
+
+            elif escolha == 5:
+                editar_contato(agenda)
                 
             #Encerrar
-            elif escolha == 5:
+            elif escolha == 6:
                 print("Saindo...")
                 break
 

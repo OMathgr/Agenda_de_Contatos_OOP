@@ -21,7 +21,7 @@ class Agenda:
 
     def listar(self):
         if not self.contatos:
-            print("Nenhum contato cadastrado.")
+            print("[INFO] Nenhum contato cadastrado.")
             return
         
         for i, contato in enumerate(self.contatos):
@@ -29,12 +29,11 @@ class Agenda:
 
     def remover(self, indice):
         if not self.contatos:
-            print ("Nenhum contato cadastrado.")
+            print ("[INFO] Nenhum contato cadastrado.")
             return
 
         if indice < 0 or indice >= len(self.contatos):
-            print("Número inválido.")
-            return
+            raise IndexError("[ERRO] Índice inválido.")
         
         contato_removido = self.contatos.pop(indice)
         self.repo.salvar_contatos(self.contatos)
@@ -43,3 +42,24 @@ class Agenda:
 
     def buscar(self, termo):
         return [c for c in self.contatos if c.corresponde(termo)]
+    
+    def editar(self, indice, nome=None, telefone=None, email=None):
+        if indice < 0 or indice >= len(self.contatos):
+            raise IndexError("[ERRO] Índice inválido.")
+        
+        contato = self.contatos[indice]
+
+        if nome:
+            contato.nome = nome
+        
+        if telefone:
+            contato.telefone = telefone
+
+        if email:
+            contato.email = email
+
+        for i, c in enumerate(self.contatos):
+            if i != indice and c == contato:
+                raise ValueError("[ERRO] Contato duplicado.")
+
+        self.repo.salvar_contatos(self.contatos)
