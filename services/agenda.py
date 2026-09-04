@@ -1,10 +1,9 @@
 from models.contato import Contato
-from data.arquivo import ArquivoCSV
+from data.banco import BancoDB
 
 class Agenda:
     def __init__(self):
-        self.repo = ArquivoCSV()
-        self.repo.verificar_e_corrigir_cabecalho()
+        self.repo = BancoDB()
         self.contatos = self.repo.ler_contatos()
 
     def adicionar(self, contato=None, nome=None, telefone=None, email=None):
@@ -15,9 +14,41 @@ class Agenda:
             print(f"Contato com email '{contato.email}' já existente.")
             return
 
+        self.repo.inserir(contato)        # ← só insere um
         self.contatos.append(contato)
-        self.repo.salvar_contatos(self.contatos)
         print("Contato adicionado com sucesso!")
+
+    def remover(self, indice):
+        if not self.contatos:
+            print("[INFO] Nenhum contato cadastrado.")
+            return
+
+        if indice < 0 or indice >= len(self.contatos):
+            raise IndexError("[ERRO] Índice inválido.")
+        
+        contato_removido = self.contatos.pop(indice)
+        self.repo.remover_por_email(contato_removido.email)  # ← só remove um
+        print(f"Contato '{contato_removido.nome}' removido com sucesso!")
+
+    def editar(self, indice, nome=None, telefone=None, email=None):
+        if indice < 0 or indice >= len(self.contatos):
+            raise IndexError("[ERRO] Índice inválido.")
+        
+        contato = self.contatos[indice]
+        email_original = contato.email   # ← guarda antes de alterar
+
+        if nome:
+            contato.nome = nome
+        if telefone:
+            contato.telefone = telefone
+        if email:
+            contato.email = email
+
+        for i, c in enumerate(self.contatos):
+            if i != indice and c == contato:
+                raise ValueError("[ERRO] Contato duplicado.")
+
+        self.repo.atualizar(email_original, contato)  # ← só atualiza um
 
     def listar(self):
         if not self.contatos:
@@ -27,39 +58,5 @@ class Agenda:
         for i, contato in enumerate(self.contatos):
             print(f"{i} - {contato}")
 
-    def remover(self, indice):
-        if not self.contatos:
-            print ("[INFO] Nenhum contato cadastrado.")
-            return
-
-        if indice < 0 or indice >= len(self.contatos):
-            raise IndexError("[ERRO] Índice inválido.")
-        
-        contato_removido = self.contatos.pop(indice)
-        self.repo.salvar_contatos(self.contatos)
-
-        print(f"Contato '{contato_removido.nome}' removido com sucesso!")
-
     def buscar(self, termo):
         return [c for c in self.contatos if c.corresponde(termo)]
-    
-    def editar(self, indice, nome=None, telefone=None, email=None):
-        if indice < 0 or indice >= len(self.contatos):
-            raise IndexError("[ERRO] Índice inválido.")
-        
-        contato = self.contatos[indice]
-
-        if nome:
-            contato.nome = nome
-        
-        if telefone:
-            contato.telefone = telefone
-
-        if email:
-            contato.email = email
-
-        for i, c in enumerate(self.contatos):
-            if i != indice and c == contato:
-                raise ValueError("[ERRO] Contato duplicado.")
-
-        self.repo.salvar_contatos(self.contatos)
