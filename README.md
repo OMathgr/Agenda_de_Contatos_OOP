@@ -97,7 +97,7 @@ Este projeto foi desenvolvido com foco em aprendizado, evoluindo de uma versão 
 ## 📌 Próximos passos
 
 - [ ] Interface gráfica (Tkinter)
-- [ ] Integração com banco de dados (SQLite)
+- ✅ Integração com banco de dados (SQLite)
 - [ ] Criação de API (Flask/FastAPI)
 
 ---
